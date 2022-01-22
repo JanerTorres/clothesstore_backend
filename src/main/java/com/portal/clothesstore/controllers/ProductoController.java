@@ -1,6 +1,7 @@
 package com.portal.clothesstore.controllers;
 
 import com.portal.clothesstore.dto.ProductoResponse;
+import com.portal.clothesstore.dto.TopProductosResponse;
 import com.portal.clothesstore.models.ProductoModel;
 import com.portal.clothesstore.services.ProductoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,6 +47,11 @@ public class ProductoController {
     @ResponseBody
     public byte[] getImagenTrasera(@RequestParam(value = "id") Long idProducto){
         return productoService.getImagenTrasera(idProducto);
+    }
+
+    @GetMapping(value = "/top")
+    public List<TopProductosResponse> findTopProductos(@RequestParam(value = "cantidad") Integer cantidad){
+        return productoService.findTopProductos(cantidad);
     }
 
 

@@ -3,6 +3,7 @@ package com.portal.clothesstore.services;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.portal.clothesstore.dto.ProductoRequest;
 import com.portal.clothesstore.dto.ProductoResponse;
+import com.portal.clothesstore.dto.TopProductosResponse;
 import com.portal.clothesstore.models.ProductoModel;
 import com.portal.clothesstore.repositories.ProductoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -77,6 +79,18 @@ public class ProductoService {
         ProductoModel producto = productoRepository.findById(idProducto)
                 .orElseThrow(() -> new IllegalArgumentException("Producto no encontrado"));
         return producto.getImgTrasera();
+    }
+
+    public List<TopProductosResponse> findTopProductos(Integer cantidad){
+        List <ProductoModel> topProductos = productoRepository.findTopProductos(cantidad);
+        topProductos = topProductos.subList(0, cantidad);
+        List<TopProductosResponse> productosToResponse = new ArrayList<>();
+        for (ProductoModel p : topProductos){
+            productosToResponse.add(new TopProductosResponse(p.getId(), p.getNombre(),p.getPrecio(),
+                                                                p.getDescuento(),p.getImgFrontal(),
+                                                                    p.getImgTrasera()));
+        }
+        return productosToResponse;
     }
 
 

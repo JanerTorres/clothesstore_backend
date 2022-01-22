@@ -1,5 +1,6 @@
 package com.portal.clothesstore.models;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import lombok.*;
 import org.springframework.boot.context.properties.bind.DefaultValue;
 
