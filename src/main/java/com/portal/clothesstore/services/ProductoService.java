@@ -19,7 +19,7 @@ import java.util.List;
 public class ProductoService {
 
     @Autowired
-    ProductoRepository productoRepository;
+    private ProductoRepository productoRepository;
 
     public List<ProductoModel> getProductos(){
         return (List<ProductoModel>) productoRepository.findAll();
